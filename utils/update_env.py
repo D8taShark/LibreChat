@@ -47,7 +47,8 @@ def update_env_file_with_local_env(input_file_path, output_file_path):
     lines = read_env_file(input_file_path)
     updated_lines = []
     # Regex pattern to match lines ending with "GET_FROM_LOCAL_ENV"
-    env_var_pattern = re.compile(r'^\s*([A-Z_]+)=GET_FROM_LOCAL_ENV\s*$')
+    # Allow digits within environment variable names
+    env_var_pattern = re.compile(r'^\s*([A-Z0-9_]+)=GET_FROM_LOCAL_ENV\s*$')
     missing_vars = []
     updated_vars = []
 
