@@ -8,7 +8,7 @@ import CategoryIcon from '~/components/Prompts/Groups/CategoryIcon';
 import OGDialogTemplate from '~/components/ui/OGDialogTemplate';
 import { useLocalize, useAuthContext } from '~/hooks';
 import { TrashIcon } from '~/components/svg';
-import { cn } from '~/utils/';
+import { cn, logger } from '~/utils/';
 
 interface DashGroupItemProps {
   group: TPromptGroup;
@@ -49,7 +49,7 @@ function DashGroupItemComponent({ group, instanceProjectId }: DashGroupItemProps
   const { isLoading } = updateGroup;
 
   const handleSaveRename = useCallback(() => {
-    console.log(group._id ?? '', { name: nameInputValue });
+    logger.log('prompts', group._id ?? '', { name: nameInputValue });
     updateGroup.mutate({ id: group._id ?? '', payload: { name: nameInputValue } });
   }, [group._id, nameInputValue, updateGroup]);
 

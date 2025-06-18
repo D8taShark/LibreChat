@@ -7,6 +7,7 @@ import UploadFileButton from '../FileList/UploadFileButton';
 import UploadFileModal from '../FileList/UploadFileModal';
 import { BarChart4Icon, Clock3, FileClock, FileIcon, InfoIcon, PlusIcon } from 'lucide-react';
 import { useParams } from 'react-router-dom';
+import { logger } from '~/utils';
 
 const tempVectorStore = {
   _id: 'vs_NeHK4JidLKJ2qo23dKLLK',
@@ -111,7 +112,7 @@ export default function VectorStorePreview() {
           <div>
             <DeleteIconButton
               onClick={() => {
-                console.log('click');
+                logger.log('files', 'delete vector store');
               }}
             />
           </div>
@@ -202,7 +203,7 @@ export default function VectorStorePreview() {
                   <div className="content-center text-nowrap">{file.createdAt?.toString()}</div>
                   <Button
                     className="my-0 ml-3 h-min bg-transparent p-0 text-[#666666] hover:bg-slate-200"
-                    onClick={() => console.log('click')}
+                    onClick={() => logger.log('files', 'remove file')}
                   >
                     <TrashIcon className="m-0 p-0" />
                   </Button>

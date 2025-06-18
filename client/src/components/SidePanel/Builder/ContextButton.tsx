@@ -5,7 +5,7 @@ import { useChatContext, useToastContext } from '~/Providers';
 import { useDeleteAssistantMutation } from '~/data-provider';
 import DialogTemplate from '~/components/ui/DialogTemplate';
 import { useLocalize, useSetIndexOptions } from '~/hooks';
-import { cn, removeFocusOutlines } from '~/utils/';
+import { cn, removeFocusOutlines, logger } from '~/utils/';
 import { TrashIcon } from '~/components/svg';
 
 export default function ContextButton({
@@ -39,7 +39,7 @@ export default function ContextButton({
       });
 
       if (createMutation.data?.id !== undefined) {
-        console.log('[deleteAssistant] resetting createMutation');
+        logger.log('assistants', '[deleteAssistant] resetting createMutation');
         createMutation.reset();
       }
 

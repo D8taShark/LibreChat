@@ -225,7 +225,7 @@ export default function useQueryParams({
         const newUrl = window.location.pathname;
         window.history.replaceState({}, '', newUrl);
         processedRef.current = true;
-        console.log('Parameters processed successfully');
+        logger.log('params', 'Parameters processed successfully');
         clearInterval(intervalId);
       };
 

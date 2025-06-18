@@ -3,6 +3,7 @@ import { useState, useMemo, useRef, useCallback, useEffect } from 'react';
 import { useTextToSpeechMutation, useVoicesQuery } from '~/data-provider';
 import { useToastContext } from '~/Providers/ToastContext';
 import useLocalize from '~/hooks/useLocalize';
+import { logger } from '~/utils';
 import store from '~/store';
 
 const createFormData = (text: string, voice: string) => {
@@ -62,7 +63,7 @@ function useTextToSpeechExternal({
         error.message &&
         error.message.includes('The play() request was interrupted by a call to pause()')
       ) {
-        console.log('Play request was interrupted by a call to pause()');
+        logger.warn('Play request was interrupted by a call to pause()');
         initializeAudio();
         return playPromise().catch(console.error);
       }
@@ -74,7 +75,7 @@ function useTextToSpeechExternal({
     });
 
     newAudio.onended = () => {
-      console.log('Cached message audio ended');
+      logger.log('audio', 'Cached message audio ended');
       URL.revokeObjectURL(blobUrl);
       setIsSpeaking(false);
     };

@@ -18,6 +18,7 @@ import type { TResData } from '~/common';
 import { useGenTitleMutation, useGetStartupConfig, useGetUserBalance } from '~/data-provider';
 import { useAuthContext } from '~/hooks/AuthContext';
 import useEventHandlers from './useEventHandlers';
+import { logger } from '~/utils';
 import store from '~/store';
 
 const clearDraft = (conversationId?: string | null) => {
@@ -128,7 +129,7 @@ export default function useSSE(
         const { plugins } = data;
         finalHandler(data, { ...submission, plugins } as EventSubmission);
         (startupConfig?.balance?.enabled ?? false) && balanceQuery.refetch();
-        console.log('final', data);
+        logger.log('sse', 'final', data);
         return;
       } else if (data.created != null) {
         const runId = v4();
@@ -172,7 +173,7 @@ export default function useSSE(
 
     sse.addEventListener('open', () => {
       setAbortScroll(false);
-      console.log('connection is opened');
+      logger.log('sse', 'connection is opened');
     });
 
     sse.addEventListener('cancel', async () => {
@@ -219,11 +220,11 @@ export default function useSSE(
           return;
         } catch (error) {
           /* token refresh failed, continue handling the original 401 */
-          console.log(error);
+          logger.error('sse', error);
         }
       }
 
-      console.log('error in server stream.');
+      logger.error('sse', 'error in server stream.');
       (startupConfig?.balance?.enabled ?? false) && balanceQuery.refetch();
 
       let data: TResData | undefined = undefined;
@@ -231,7 +232,7 @@ export default function useSSE(
         data = JSON.parse(e.data) as TResData;
       } catch (error) {
         console.error(error);
-        console.log(e);
+        logger.error('sse', e);
         setIsSubmitting(false);
       }
 

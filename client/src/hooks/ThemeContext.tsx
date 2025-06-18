@@ -2,7 +2,7 @@
 // source: https://plainenglish.io/blog/light-and-dark-mode-in-react-web-application-with-tailwind-css-89674496b942
 import { useSetRecoilState } from 'recoil';
 import React, { createContext, useState, useEffect } from 'react';
-import { getInitialTheme, applyFontSize } from '~/utils';
+import { getInitialTheme, applyFontSize, logger } from '~/utils';
 import store from '~/store';
 
 type ProviderValue = {
@@ -64,7 +64,7 @@ export const ThemeProvider = ({ initialTheme, children }) => {
     try {
       applyFontSize(JSON.parse(fontSize));
     } catch (error) {
-      console.log(error);
+      logger.error('theme', error);
     }
     // Reason: This effect should only run once, and `setFontSize` is a stable function
     // eslint-disable-next-line react-hooks/exhaustive-deps

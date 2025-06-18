@@ -8,6 +8,7 @@ import ActionButton from '../ActionButton';
 import DeleteIconButton from '../DeleteIconButton';
 import { ListFilter } from 'lucide-react';
 import { useLocalize } from '~/hooks';
+import { logger } from '~/utils';
 
 const fakeVectorStores: TVectorStore[] = [
   {
@@ -212,7 +213,7 @@ export default function VectorStoreSidePanel() {
   const localize = useLocalize();
   const deleteVectorStore = (id: string | undefined) => {
     // Define delete functionality here
-    console.log(`Deleting VectorStore with id: ${id}`);
+    logger.log('files', `Deleting VectorStore with id: ${id}`);
   };
 
   return (
@@ -230,7 +231,7 @@ export default function VectorStoreSidePanel() {
               placeholder={localize('com_files_filter')}
               value={''}
               onChange={() => {
-                console.log('changed');
+                logger.log('files', 'changed');
               }}
               className="max-w-sm border-border-light placeholder:text-text-secondary"
             />
@@ -238,7 +239,7 @@ export default function VectorStoreSidePanel() {
           <div className="w-1/3">
             <VectorStoreButton
               onClick={() => {
-                console.log('Add Vector Store');
+                logger.log('files', 'Add Vector Store');
               }}
             />
           </div>

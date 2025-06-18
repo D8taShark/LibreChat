@@ -36,6 +36,7 @@ import { TrashIcon, Spinner } from '~/components/svg';
 import useLocalize from '~/hooks/useLocalize';
 import ActionButton from '../ActionButton';
 import UploadFileButton from './UploadFileButton';
+import { logger } from '~/utils';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -93,7 +94,7 @@ export default function DataTableFile<TData, TValue>({
           <div className="mt-3 flex w-full flex-row justify-center gap-x-3 md:m-0 md:justify-start">
             <ActionButton
               onClick={() => {
-                console.log('click');
+                logger.log('files', 'action click');
               }}
             />
             <Button
@@ -152,7 +153,7 @@ export default function DataTableFile<TData, TValue>({
               onChange={(event) => table.getColumn('filename')?.setFilterValue(event.target.value)}
               className="max-w-sm border-border-medium placeholder:text-text-secondary"
             />
-            <UploadFileButton onClick={() => console.log('click')} />
+            <UploadFileButton onClick={() => logger.log('files', 'upload click')} />
           </div>
         </div>
       </div>

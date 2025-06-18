@@ -5,6 +5,7 @@ import type * as t from 'librechat-data-provider';
 import type { UseMutateAsyncFunction } from '@tanstack/react-query';
 import type { ExtendedFile, GenericSetter } from '~/common';
 import useSetFilesToDelete from './useSetFilesToDelete';
+import { logger } from '~/utils';
 
 type FileMapSetter = GenericSetter<Map<string, ExtendedFile>>;
 
@@ -40,7 +41,7 @@ const useFileDeletion = ({
         assistant_id,
         tool_resource,
       });
-      console.log('Deleting files:', filesToDelete, payload);
+      logger.log('files', 'Deleting files:', filesToDelete, payload);
       mutateAsync({ files: filesToDelete, ...payload });
       setFileDeleteBatch([]);
     },

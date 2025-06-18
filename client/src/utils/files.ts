@@ -8,6 +8,7 @@ import {
 import type { TFile, EndpointFileConfig } from 'librechat-data-provider';
 import type { QueryClient } from '@tanstack/react-query';
 import type { ExtendedFile } from '~/common';
+import { logger } from '~/utils';
 import SheetPaths from '~/components/svg/Files/SheetPaths';
 import TextPaths from '~/components/svg/Files/TextPaths';
 import FilePaths from '~/components/svg/Files/FilePaths';
@@ -251,7 +252,7 @@ export const validateFiles = ({
     }
 
     if (!checkType(originalFile.type, supportedMimeTypes)) {
-      console.log(originalFile);
+      logger.log('files', originalFile);
       setError('Currently, unsupported file type: ' + originalFile.type);
       return false;
     }

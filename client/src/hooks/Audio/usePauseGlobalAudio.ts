@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { globalAudioId } from '~/common';
 import store from '~/store';
+import { logger } from '~/utils';
 
 function usePauseGlobalAudio(index = 0) {
   /* Global Audio Variables */
@@ -15,7 +16,7 @@ function usePauseGlobalAudio(index = 0) {
     if (globalAudioURL != null && globalAudioURL !== '') {
       const globalAudio = document.getElementById(globalAudioId);
       if (globalAudio) {
-        console.log('Pausing global audio', globalAudioURL);
+        logger.log('audio', 'Pausing global audio', globalAudioURL);
         (globalAudio as HTMLAudioElement).pause();
         setGlobalIsPlaying(false);
       }

@@ -18,6 +18,7 @@ import { useInteractionHealthCheck } from '~/data-provider';
 import { useChatContext } from '~/Providers/ChatContext';
 import useLocalize from '~/hooks/useLocalize';
 import { globalAudioId } from '~/common';
+import { logger } from '~/utils';
 import store from '~/store';
 
 type KeyEvent = KeyboardEvent<HTMLTextAreaElement>;
@@ -182,7 +183,7 @@ export default function useTextarea({
       if ((isNonShiftEnter || isCtrlEnter) && !isComposingInput) {
         const globalAudio = document.getElementById(globalAudioId) as HTMLAudioElement | undefined;
         if (globalAudio) {
-          console.log('Unmuting global audio');
+          logger.log('audio', 'Unmuting global audio');
           globalAudio.muted = false;
         }
         submitButtonRef.current?.click();

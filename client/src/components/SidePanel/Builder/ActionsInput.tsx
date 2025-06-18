@@ -21,6 +21,7 @@ import { ActionsTable, columns } from './ActionsTable';
 import { useUpdateAction } from '~/data-provider';
 import useLocalize from '~/hooks/useLocalize';
 import { Spinner } from '~/components/svg';
+import { logger } from '~/utils';
 
 const debouncedValidation = debounce(
   (input: string, callback: (result: ValidationResult) => void) => {
@@ -109,7 +110,7 @@ export default function ActionsInput({
   });
 
   const saveAction = handleSubmit((authFormData) => {
-    console.log('authFormData', authFormData);
+    logger.log('actions', 'authFormData', authFormData);
     const currentAssistantId = assistant_id ?? '';
     if (!currentAssistantId) {
       // alert user?
@@ -227,7 +228,7 @@ export default function ActionsInput({
             </button> */}
             <select
               id="example-schema"
-              onChange={(e) => console.log(e.target.value)}
+              onChange={(e) => logger.log('actions', e.target.value)}
               className="border-token-border-medium h-8 min-w-[100px] rounded-lg border bg-transparent px-2 py-0 text-sm"
             >
               <option value="label">{localize('com_ui_examples')}</option>

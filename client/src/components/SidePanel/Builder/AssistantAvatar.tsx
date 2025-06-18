@@ -20,7 +20,7 @@ import { useToastContext, useAssistantsMapContext } from '~/Providers';
 import { AssistantAvatar, NoImage, AvatarMenu } from './Images';
 // import { Spinner } from '~/components/svg';
 import { useLocalize } from '~/hooks';
-import { formatBytes } from '~/utils';
+import { formatBytes, logger } from '~/utils';
 
 function Avatar({
   endpoint,
@@ -142,7 +142,7 @@ function Avatar({
     }
 
     if (sharedUploadCondition && createMutation.data.id) {
-      console.log('[AssistantAvatar] Uploading Avatar after Assistant Creation');
+      logger.log('assistants', '[AssistantAvatar] Uploading Avatar after Assistant Creation');
 
       const formData = new FormData();
       formData.append('file', input, input.name);
@@ -182,7 +182,7 @@ function Avatar({
 
       if (!assistant_id) {
         // wait for successful form submission before uploading avatar
-        console.log('[AssistantAvatar] No assistant_id, will wait until form submission + upload');
+        logger.log('assistants', '[AssistantAvatar] No assistant_id, will wait until form submission + upload');
         return;
       }
 

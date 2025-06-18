@@ -204,8 +204,8 @@ async function _handleRun({ openai, run_id, thread_id }) {
     //   // Define logic for handling steps with 'queued' status
     // },
     final: async ({ step, runStatus, stepsByStatus }) => {
-      console.log(`Final step for ${run_id} with status ${runStatus}`);
-      console.dir(step, { depth: null });
+      logger.debug(`Final step for ${run_id} with status ${runStatus}`);
+      logger.debug(step);
 
       const promises = [];
       promises.push(openai.beta.threads.messages.list(thread_id, defaultOrderQuery));

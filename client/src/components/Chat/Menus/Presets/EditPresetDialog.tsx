@@ -9,6 +9,7 @@ import {
   removeFocusOutlines,
   mapEndpoints,
   getConvoSwitchLogic,
+  logger,
 } from '~/utils';
 import { Input, Label, SelectDropDown, Dialog, DialogClose, DialogButton } from '~/components';
 import { useSetIndexOptions, useLocalize, useDebouncedInput } from '~/hooks';
@@ -78,7 +79,7 @@ const EditPresetDialog = ({
     }
 
     if (!models.includes(preset.model ?? '')) {
-      console.log('setting model', models[0]);
+      logger.log('presets', 'setting model', models[0]);
       setOption('model')(models[0]);
     }
 
@@ -91,7 +92,7 @@ const EditPresetDialog = ({
       preset.agentOptions.model &&
       !models.includes(preset.agentOptions.model)
     ) {
-      console.log('setting agent model', models[0]);
+      logger.log('presets', 'setting agent model', models[0]);
       setAgentOption('model')(models[0]);
     }
   }, [preset, queryClient, setOption, setAgentOption]);

@@ -2,6 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { QueryKeys } from 'librechat-data-provider';
 import type { BatchFile, TFile } from 'librechat-data-provider';
 import { useDeleteFilesMutation } from '~/data-provider';
+import { logger } from '~/utils';
 import useFileDeletion from './useFileDeletion';
 
 export default function useDeleteFilesFromTable(callback?: () => void) {
@@ -21,7 +22,7 @@ export default function useDeleteFilesFromTable(callback?: () => void) {
       return { filesToDeleteMap };
     },
     onSuccess: (data, variables, context) => {
-      console.log('Files deleted');
+      logger.log('files', 'Files deleted');
       const { filesToDeleteMap } = context as { filesToDeleteMap: Map<string, BatchFile> };
 
       queryClient.setQueryData([QueryKeys.files], (oldFiles: TFile[] | undefined) => {
@@ -33,7 +34,7 @@ export default function useDeleteFilesFromTable(callback?: () => void) {
       callback?.();
     },
     onError: (error) => {
-      console.log('Error deleting files:', error);
+      logger.error('Error deleting files:', error);
       callback?.();
     },
   });

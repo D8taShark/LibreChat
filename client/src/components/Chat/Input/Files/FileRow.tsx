@@ -44,10 +44,10 @@ export default function FileRow({
         tool_resource,
       ),
     onSuccess: () => {
-      console.log('Files deleted');
+      logger.log('files', 'Files deleted');
     },
     onError: (error) => {
-      console.log('Error deleting files:', error);
+      logger.error('files', 'Error deleting files:', error);
     },
   });
 

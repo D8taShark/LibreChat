@@ -2,6 +2,7 @@ const { Keyv } = require('keyv');
 const { CacheKeys, ViolationTypes, Time } = require('librechat-data-provider');
 const { logFile, violationFile } = require('./keyvFiles');
 const { math, isEnabled } = require('~/server/utils');
+const { logger } = require('~/config');
 const keyvRedis = require('./keyvRedis');
 const keyvMongo = require('./keyvMongo');
 
@@ -150,7 +151,7 @@ async function clearExpiredFromCache(cache) {
       }
     } catch (error) {
       debugMemoryCache &&
-        console.log(`[Cache] Error processing entry from ${cache.opts.namespace}:`, error);
+        logger.error(`[Cache] Error processing entry from ${cache.opts.namespace}:`, error);
       const deleted = await cache.opts.store.delete(key);
       if (!deleted) {
         debugMemoryCache &&
@@ -163,7 +164,7 @@ async function clearExpiredFromCache(cache) {
 
   if (cleared > 0) {
     debugMemoryCache &&
-      console.log(
+      logger.debug(
         `[Cache] Cleared ${cleared} entries older than ${ttl}ms from ${cache.opts.namespace}`,
       );
   }
@@ -171,14 +172,14 @@ async function clearExpiredFromCache(cache) {
 
 const auditCache = () => {
   const ttlStores = getTTLStores();
-  console.log('[Cache] Starting audit');
+  logger.debug('[Cache] Starting audit');
 
   ttlStores.forEach((store) => {
     if (!store?.opts?.store?.entries) {
       return;
     }
 
-    console.log(`[Cache] ${store.opts.namespace} entries:`, {
+    logger.debug(`[Cache] ${store.opts.namespace} entries:`, {
       count: store.opts.store.size,
       ttl: store.opts.ttl,
       keys: Array.from(store.opts.store.keys()),
@@ -220,7 +221,7 @@ if (!isRedisEnabled && !isEnabled(CI)) {
       const memory = process.memoryUsage();
       const totalSize = ttlStores.reduce((sum, store) => sum + (store.opts?.store?.size ?? 0), 0);
 
-      console.log('[Cache] Memory usage:', {
+      logger.debug('[Cache] Memory usage:', {
         heapUsed: `${(memory.heapUsed / 1024 / 1024).toFixed(2)} MB`,
         heapTotal: `${(memory.heapTotal / 1024 / 1024).toFixed(2)} MB`,
         rss: `${(memory.rss / 1024 / 1024).toFixed(2)} MB`,
@@ -235,13 +236,13 @@ if (!isRedisEnabled && !isEnabled(CI)) {
   }
 
   const dispose = () => {
-    debugMemoryCache && console.log('[Cache] Cleaning up and shutting down...');
+    debugMemoryCache && logger.debug('[Cache] Cleaning up and shutting down...');
     cleanupIntervals.forEach((interval) => clearInterval(interval));
     cleanupIntervals.clear();
 
     // One final cleanup before exit
     clearAllExpiredFromCache().then(() => {
-      debugMemoryCache && console.log('[Cache] Final cleanup completed');
+      debugMemoryCache && logger.debug('[Cache] Final cleanup completed');
       process.exit(0);
     });
   };

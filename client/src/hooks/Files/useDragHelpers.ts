@@ -14,6 +14,7 @@ import {
 import type * as t from 'librechat-data-provider';
 import type { DropTargetMonitor } from 'react-dnd';
 import useFileHandling from './useFileHandling';
+import { logger } from '~/utils';
 import store, { ephemeralAgentByConvoId } from '~/store';
 
 export default function useDragHelpers() {
@@ -48,7 +49,7 @@ export default function useDragHelpers() {
     () => ({
       accept: [NativeTypes.FILE],
       drop(item: { files: File[] }) {
-        console.log('drop', item.files);
+        logger.log('files', 'drop', item.files);
         if (!isAgents) {
           handleFiles(item.files);
           return;

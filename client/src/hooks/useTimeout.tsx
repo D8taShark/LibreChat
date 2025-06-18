@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { logger } from '~/utils';
 
 type TUseTimeoutParams = {
   callback: (error: string | number | boolean | null) => void;
@@ -17,7 +18,7 @@ function useTimeout({ callback, delay = 400 }: TUseTimeoutParams) {
 
     // Set new timeout
     if (value != null && value) {
-      console.log(value);
+      logger.log('timeout', value);
       timeout.current = setTimeout(() => {
         callback(value);
       }, delay);

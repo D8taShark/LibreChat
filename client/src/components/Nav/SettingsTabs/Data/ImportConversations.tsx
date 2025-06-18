@@ -5,7 +5,7 @@ import { useUploadConversationsMutation } from '~/data-provider';
 import { useToastContext } from '~/Providers';
 import { Spinner } from '~/components/svg';
 import { useLocalize } from '~/hooks';
-import { cn } from '~/utils';
+import { cn, logger } from '~/utils';
 
 function ImportConversations() {
   const localize = useLocalize();
@@ -52,7 +52,7 @@ function ImportConversations() {
     try {
       await startUpload(_file);
     } catch (error) {
-      console.log('file handling error', error);
+      logger.error('files', 'file handling error', error);
       setError('An error occurred while processing the file.');
     }
   };

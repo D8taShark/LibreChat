@@ -8,7 +8,7 @@ import { GitCommit, GitBranchPlus, ListTree } from 'lucide-react';
 import { TranslationKeys, useLocalize, useNavigateToConvo } from '~/hooks';
 import { useForkConvoMutation } from '~/data-provider';
 import { useToastContext } from '~/Providers';
-import { cn } from '~/utils';
+import { cn, logger } from '~/utils';
 import store from '~/store';
 
 interface PopoverButtonProps {
@@ -355,7 +355,7 @@ export default function Fork({
                     checked={remember}
                     onChange={(event) => {
                       const checked = event.target.checked;
-                      console.log('checked', checked);
+                      logger.log('fork', 'checked', checked);
                       if (checked) {
                         showToast({
                           message: localize('com_ui_fork_remember_checked'),

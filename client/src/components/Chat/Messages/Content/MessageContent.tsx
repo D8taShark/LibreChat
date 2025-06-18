@@ -6,6 +6,7 @@ import Error from '~/components/Messages/Content/Error';
 import Thinking from '~/components/Artifacts/Thinking';
 import { DelayedRender } from '~/components/ui';
 import { useChatContext } from '~/Providers';
+import { logger } from '~/utils';
 import MarkdownLite from './MarkdownLite';
 import EditMessage from './EditMessage';
 import { useLocalize } from '~/hooks';
@@ -23,7 +24,7 @@ export const ErrorMessage = ({
 }) => {
   const localize = useLocalize();
   if (text === 'Error connecting to server, try refreshing the page.') {
-    console.log('error message', message);
+    logger.error('chat', 'error message', message);
     return (
       <Suspense
         fallback={

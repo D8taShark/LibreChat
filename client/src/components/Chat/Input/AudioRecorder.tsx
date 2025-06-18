@@ -4,7 +4,7 @@ import { ListeningIcon, Spinner } from '~/components/svg';
 import { useLocalize, useSpeechToText } from '~/hooks';
 import { TooltipAnchor } from '~/components/ui';
 import { globalAudioId } from '~/common';
-import { cn } from '~/utils';
+import { cn, logger } from '~/utils';
 
 export default function AudioRecorder({
   disabled,
@@ -35,7 +35,7 @@ export default function AudioRecorder({
       if (text) {
         const globalAudio = document.getElementById(globalAudioId) as HTMLAudioElement | null;
         if (globalAudio) {
-          console.log('Unmuting global audio');
+          logger.log('audio', 'Unmuting global audio');
           globalAudio.muted = false;
         }
         ask({ text });

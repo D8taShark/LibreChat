@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent } from 'react';
 import AttachFile from '~/components/Chat/Input/Files/AttachFile';
 import { Button, Dialog, DialogContent, DialogHeader, DialogTitle, Input } from '~/components/ui';
 import { useLocalize } from '~/hooks';
-import { cn } from '~/utils';
+import { cn, logger } from '~/utils';
 
 const UploadFileModal = ({ open, onOpenChange }) => {
   const localize = useLocalize();
@@ -72,7 +72,7 @@ const UploadFileModal = ({ open, onOpenChange }) => {
               <Button
                 className="w-full rounded-md border border-black bg-black p-0 text-white"
                 onClick={() => {
-                  console.log('upload file');
+                  logger.log('files', 'upload file');
                 }}
               >
                 Upload

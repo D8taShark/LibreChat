@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { logger } from '~/utils';
 
 interface CustomAudioElement extends HTMLAudioElement {
   customStarted?: boolean;
@@ -25,7 +26,7 @@ export default function useCustomAudioRef({
 
     const handleEnded = () => {
       setIsPlaying(false);
-      console.log('global audio ended');
+      logger.log('audio', 'global audio ended');
       if (audioRef.current) {
         audioRef.current.customEnded = true;
         URL.revokeObjectURL(audioRef.current.src);
@@ -34,14 +35,14 @@ export default function useCustomAudioRef({
 
     const handleStart = () => {
       setIsPlaying(true);
-      console.log('global audio started');
+      logger.log('audio', 'global audio started');
       if (audioRef.current) {
         audioRef.current.customStarted = true;
       }
     };
 
     const handlePause = () => {
-      console.log('global audio paused');
+      logger.log('audio', 'global audio paused');
       if (audioRef.current) {
         audioRef.current.customPaused = true;
       }
@@ -61,7 +62,7 @@ export default function useCustomAudioRef({
         lastTimeUpdate = currentTime;
 
         if (sameTimeUpdateCount >= 1) {
-          console.log('Detected end of audio based on time update');
+          logger.log('audio', 'Detected end of audio based on time update');
           audioRef.current.pause();
           handleEnded();
         }

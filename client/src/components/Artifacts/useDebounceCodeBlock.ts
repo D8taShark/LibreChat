@@ -4,13 +4,14 @@ import debounce from 'lodash/debounce';
 import { useSetRecoilState } from 'recoil';
 import { codeBlocksState, codeBlockIdsState } from '~/store/artifacts';
 import type { CodeBlock } from '~/common';
+import { logger } from '~/utils';
 
 export function useDebounceCodeBlock() {
   const setCodeBlocks = useSetRecoilState(codeBlocksState);
   const setCodeBlockIds = useSetRecoilState(codeBlockIdsState);
 
   const updateCodeBlock = useCallback((codeBlock: CodeBlock) => {
-    console.log('Updating code block:', codeBlock);
+    logger.log('artifacts', 'Updating code block:', codeBlock);
     setCodeBlocks((prev) => ({
       ...prev,
       [codeBlock.id]: codeBlock,

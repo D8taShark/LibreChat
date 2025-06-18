@@ -7,6 +7,7 @@ import DeleteIconButton from '../DeleteIconButton';
 import VectorStoreButton from '../VectorStore/VectorStoreButton';
 import { CircleIcon, Clock3Icon, InfoIcon } from 'lucide-react';
 import { useParams } from 'react-router-dom';
+import { logger } from '~/utils';
 
 const tempFile: TFile = {
   filename: 'File1.jpg',
@@ -57,14 +58,14 @@ export default function FilePreview() {
           <div>
             <DeleteIconButton
               onClick={() => {
-                console.log('click');
+                logger.log('files', 'delete click');
               }}
             />
           </div>
           <div className="w-40">
             <VectorStoreButton
               onClick={() => {
-                console.log('click');
+                logger.log('files', 'vector store click');
               }}
             />
           </div>
@@ -136,7 +137,7 @@ export default function FilePreview() {
                   <Button
                     className="m-0 ml-3 h-full bg-transparent p-0 text-[#666666] hover:bg-slate-200"
                     onClick={() => {
-                      console.log('Remove from vector store');
+                      logger.log('files', 'Remove from vector store');
                     }}
                     variant={'ghost'}
                   >
@@ -164,7 +165,7 @@ export default function FilePreview() {
                   <Button
                     className="m-0 ml-3 h-full bg-transparent p-0 text-[#666666] hover:bg-slate-200"
                     onClick={() => {
-                      console.log('Remove from thread');
+                      logger.log('files', 'Remove from thread');
                     }}
                   >
                     <TrashIcon className="m-0 p-0" />

@@ -8,6 +8,7 @@ import Artifacts from '~/components/Artifacts/Artifacts';
 import { SidePanelGroup } from '~/components/SidePanel';
 import { useSetFilesToDelete } from '~/hooks';
 import { EditorProvider } from '~/Providers';
+import { logger } from '~/utils';
 import store from '~/store';
 
 export default function Presentation({ children }: { children: React.ReactNode }) {
@@ -18,11 +19,11 @@ export default function Presentation({ children }: { children: React.ReactNode }
 
   const { mutateAsync } = useDeleteFilesMutation({
     onSuccess: () => {
-      console.log('Temporary Files deleted');
+      logger.log('files', 'Temporary Files deleted');
       setFilesToDelete({});
     },
     onError: (error) => {
-      console.log('Error deleting temporary files:', error);
+      logger.error('files', 'Error deleting temporary files:', error);
     },
   });
 

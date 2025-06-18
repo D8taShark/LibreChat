@@ -92,7 +92,7 @@ const useFileHandling = (params?: UseFileHandling) => {
     {
       onSuccess: (data) => {
         clearUploadTimer(data.temp_file_id);
-        console.log('upload success', data);
+        logger.log('files', 'upload success', data);
         if (agent_id) {
           queryClient.refetchQueries([QueryKeys.agent, agent_id]);
           return;
@@ -127,7 +127,7 @@ const useFileHandling = (params?: UseFileHandling) => {
       },
       onError: (_error, body) => {
         const error = _error as TError | undefined;
-        console.log('upload error', error);
+        logger.error('upload error', error);
         const file_id = body.get('file_id');
         clearUploadTimer(file_id as string);
         deleteFileById(file_id as string);
@@ -295,7 +295,7 @@ const useFileHandling = (params?: UseFileHandling) => {
         await startUpload(extendedFile);
       } catch (error) {
         deleteFileById(file_id);
-        console.log('file handling error', error);
+        logger.error('file handling error', error);
         setError('com_error_files_process');
       }
     }
