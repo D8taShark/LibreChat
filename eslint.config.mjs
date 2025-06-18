@@ -202,7 +202,6 @@ export default [
     files: ['api/**/*.js', 'config/**/*.js'],
     rules: {
       // API
-      // TODO: maybe later to error.
       'no-unused-const': 'off',
       'no-unused-vars': 'off',
       'no-async-promise-executor': 'off',
@@ -212,7 +211,6 @@ export default [
     files: ['client/src/**/*.tsx', 'client/src/**/*.ts', 'client/src/**/*.jsx', 'client/src/**/*.js'],
     rules: {
       // Client a11y
-      // TODO: maybe later to error.
       'jsx-a11y/no-noninteractive-element-interactions': 'off',
       'jsx-a11y/label-has-associated-control': 'off',
       'jsx-a11y/no-static-element-interactions': 'off',

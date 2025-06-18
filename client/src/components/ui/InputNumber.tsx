@@ -6,10 +6,6 @@ import RCInputNumber from 'rc-input-number';
 import * as InputNumberPrimitive from 'rc-input-number';
 import { cn } from '~/utils';
 
-// TODO help needed
-// React.ElementRef<typeof LabelPrimitive.Root>,
-// React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
-
 const InputNumber = React.forwardRef<
   React.ElementRef<typeof RCInputNumber>,
   InputNumberPrimitive.InputNumberProps
